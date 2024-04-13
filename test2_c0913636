@@ -1,0 +1,75 @@
+<html>
+	<font size="8" color="green">Final test lab</font><br><br>
+	Number of rows: <input type="text" id="t1" /><br><br>
+	Number of cols: <input type="text" id="t2" /><br><br>
+	
+	<button id="b1" onclick="generateTable()">Generate Table</button><br><br>
+	
+	<button id="b2" onclick="addColumn()">Add Column</button>
+	
+	<button id="b3" onclick="addRow()">Add Row</button>
+		
+
+<script language="javascript">
+			
+	// Function to generate the table
+	function generateTable() {
+	var rows = parseInt(document.getElementById('t1').value, 10);
+	var cols = parseInt(document.getElementById('t2').value, 10);
+
+
+	// Clear previous table
+	var previousTable = document.getElementById('dynamicTable');
+	if (previousTable) {
+		previousTable.remove();
+	}
+
+	//Make new table element
+	var table = document.createElement('table');
+	table.id = 'dynamicTable';
+	table.style.border = '1px solid black'; 
+
+	// Insert the new rows and columns with index numbers
+	for (var r = 0; r < rows; r++) {
+		var row = table.insertRow(r);
+		for (var c = 0; c < cols; c++) {
+		var cell = row.insertCell(c);
+		cell.innerHTML = '(' + r + ',' + c + ')'; 
+		cell.style.border = '1px solid black'; 
+		}
+	}
+
+	// Appending the table to the document
+	document.body.appendChild(table);
+	}
+
+	//Add a column to the table Function
+	function addColumn() {
+	var table = document.getElementById('dynamicTable');
+	if (table) {
+		var cols = table.rows[0].cells.length; 
+		for (var r = 0; r < table.rows.length; r++) {
+		var cell = table.rows[r].insertCell(cols);
+		cell.innerHTML = '(' + r + ',' + cols + ')';
+		cell.style.border = '1px solid black'; 
+		}
+	}
+	}
+
+	// Adding rows in the table function
+	function addRow() {
+	var table = document.getElementById('dynamicTable');
+	if (table) {
+		var newRowIndex = table.rows.length; 
+		var newRow = table.insertRow(newRowIndex);
+		var cols = table.rows[0].cells.length; 
+		for (var c = 0; c < cols; c++) {
+		var cell = newRow.insertCell(c);
+		cell.innerHTML = '(' + newRowIndex + ',' + c + ')';
+		cell.style.border = '1px solid black';
+		}
+	}
+	}
+</script>
+	
+</html>
