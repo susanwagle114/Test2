@@ -1,0 +1,78 @@
+	<html>
+	<font size="8" color="green">Final test lab</font><br><br>
+	Number of rows: <input type="text" id="t1" /><br><br>
+	Number of cols: <input type="text" id="t2" /><br><br>
+	
+	<button id="b1" onclick="generateTable()">Generate Table</button><br><br>
+	
+	<button id="b2" onclick="addColumn()">Add Column</button>
+	
+	<button id="b3" onclick="addRow()">Add Row</button>
+		
+	<button id="b4" onclick="clearTable()">Clear</button> 
+
+<script language="javascript">
+			
+	// Function to generate 
+function updateTable() {
+    let rows = parseInt(document.getElementById('t1').value, 10) || 0;
+    let cols = parseInt(document.getElementById('t2').value, 10) || 0;
+    let table = document.getElementById('dynamicTable') || document.createElement('table');
+    
+    table.id = 'dynamicTable';
+    table.innerHTML = ''; // Clear table
+    
+    // Generate table rows and cells with incrementing index
+    for (let r = 0; r < rows; r++) {
+        let row = table.insertRow();
+        for (let c = 0; c < cols; c++) {
+            let cell = row.insertCell();
+            cell.innerHTML = `(${r},${c})`;
+            cell.style.border = '1px solid black';
+        }
+    }
+
+    // Append or replace table in document
+    if (!document.getElementById('dynamicTable')) {
+        document.body.appendChild(table);
+    }
+}
+
+// Adding a column to the existing table
+function addColumn() {
+    let table = document.getElementById('dynamicTable');
+    if (table) {
+        for (let row of table.rows) {
+            let cell = row.insertCell();
+            cell.innerHTML = `(${row.rowIndex},${row.cells.length - 1})`;
+            cell.style.border = '1px solid black';
+        }
+    }
+}
+
+// Adding a row to the existing table using above concept
+function addRow() {
+    let table = document.getElementById('dynamicTable');
+    if (table) {
+        let row = table.insertRow();
+        for (let i = 0; i < table.rows[0].cells.length; i++) {
+            let cell = row.insertCell();
+            cell.innerHTML = `(${table.rows.length - 1},${i})`;
+            cell.style.border = '1px solid black';
+        }
+    }
+}
+
+// Function to clear the table
+function clearTable() {
+    let table = document.getElementById('dynamicTable');
+    if (table) {
+        table.remove();
+    }
+    document.getElementById('t1').value = '';
+    document.getElementById('t2').value = '';
+}
+
+</script>
+	
+</html>
